@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
   // initializes the board
   init();
 
-  // ADD CODE HERE!
+
   document.addEventListener('keydown', function(event) {
     const movesUl = document.querySelector('#moves-container')
     // console.log(event.key)
@@ -33,14 +33,25 @@ document.addEventListener("DOMContentLoaded", function() {
   const movesUl = document.querySelector('#moves-container')
   
   moveBtn.addEventListener('click', function() {
-    let firstLi = movesUl.querySelector('li')
-    move(firstLi.innerText)
-    firstLi.remove()
+    // let firstLi = movesUl.querySelector('li')
+    // move(firstLi.innerText)
+    // firstLi.remove()
+    autoMoveRobot()
   })
 
-
-
-  // const movesUl = document.querySelector('#moves-container')
+  function autoMoveRobot () {
+    let moveTime = setInterval(addRobot, 500);
+    
+    function addRobot() {
+      if (movesUl.children.length === 0) {
+        clearInterval(moveTime)
+      } else {
+        let firstLi = movesUl.querySelector('li')
+        move(firstLi.innerText)
+        firstLi.remove()
+      }
+    }
+  }
 
   movesUl.addEventListener('click', function(event) {
     if (event.target.matches('#downBtn')) {
@@ -53,7 +64,6 @@ document.addEventListener("DOMContentLoaded", function() {
       event.target.remove()
     }
   })
-
 
 
 });
